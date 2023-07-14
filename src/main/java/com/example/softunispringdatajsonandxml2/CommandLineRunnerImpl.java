@@ -1,6 +1,6 @@
 package com.example.softunispringdatajsonandxml2;
 
-import com.example.softunispringdatajsonandxml2.models.Customer;
+import com.example.softunispringdatajsonandxml2.models.dtos.CarWithNoPartsViewDto;
 import com.example.softunispringdatajsonandxml2.models.dtos.CustomerFullViewDto;
 import com.example.softunispringdatajsonandxml2.services.contracts.*;
 import com.google.gson.Gson;
@@ -9,7 +9,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 
@@ -38,16 +37,19 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Please select operation: " +
-                "\n1 -> Ordered Customers by Birthdate");
+                "\n1 -> Ordered Customers by Birthdate" +
+                "\n2 -> Cars from Make Toyota ordered by Model and Distance");
         int operation = Integer.parseInt(sc.nextLine());
 
         switch (operation) {
             case 1:
                 List<CustomerFullViewDto> customers = this.customerService.getAllCustomersOrderedByBirthdateThenByExperience();
-                String jsonString = gson.toJson(customers);
-                System.out.println(jsonString);
+                System.out.println(gson.toJson(customers));
                 break;
-
+            case 2:
+                List<CarWithNoPartsViewDto> cars = this.carService.getAllToyotaCarsOrderedByModelAndDistance();
+                System.out.println(gson.toJson(cars));
+                break;
 
         }
     }

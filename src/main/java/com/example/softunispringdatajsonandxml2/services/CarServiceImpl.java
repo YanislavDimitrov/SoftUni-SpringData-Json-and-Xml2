@@ -2,6 +2,7 @@ package com.example.softunispringdatajsonandxml2.services;
 
 import com.example.softunispringdatajsonandxml2.models.Car;
 import com.example.softunispringdatajsonandxml2.models.Part;
+import com.example.softunispringdatajsonandxml2.models.dtos.CarWithNoPartsViewDto;
 import com.example.softunispringdatajsonandxml2.models.dtos.seedDtos.CarSeedDto;
 import com.example.softunispringdatajsonandxml2.repositories.CarRepository;
 import com.example.softunispringdatajsonandxml2.services.contracts.CarService;
@@ -17,10 +18,12 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class CarServiceImpl implements CarService {
     public static final String CARS_DATA_FILE = "src/main/resources/files/cars.json";
+    public static final String CAR_MAKE = "Toyota";
     private final CarRepository carRepository;
     private final PartService partService;
     private final ValidationUtil validationUtil;
@@ -59,6 +62,13 @@ public class CarServiceImpl implements CarService {
         return this.carRepository
                 .findById(new Random().nextLong(1, totalCars + 1))
                 .orElse(null);
+    }
+
+    @Override
+    public List<CarWithNoPartsViewDto> getAllToyotaCarsOrderedByModelAndDistance() {
+        return this.carRepository.findAllByMakeOrderByModelAscTravelledDistanceDesc(CAR_MAKE)
+                .stream().map(car -> modelMapper.map(car, CarWithNoPartsViewDto.class))
+                .collect(Collectors.toList());
     }
 
     private List<Part> getRandomParts() {
