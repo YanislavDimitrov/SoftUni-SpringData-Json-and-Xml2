@@ -17,7 +17,6 @@ public class Part {
     private BigDecimal price;
     @Column(name = "quantity")
     private Integer quantity;
-
     @ManyToOne
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;

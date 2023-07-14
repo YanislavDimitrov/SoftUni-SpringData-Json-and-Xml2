@@ -2,6 +2,8 @@ package com.example.softunispringdatajsonandxml2.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "suppliers")
 public class Supplier {
@@ -12,6 +14,9 @@ public class Supplier {
     private String name;
     @Column(name = "is_importer")
     private boolean isImporter;
+
+    @OneToMany(mappedBy = "supplier")
+    private List<Part> parts;
 
     public Supplier() {
     }

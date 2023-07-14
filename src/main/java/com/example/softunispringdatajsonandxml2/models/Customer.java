@@ -3,6 +3,7 @@ package com.example.softunispringdatajsonandxml2.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
@@ -16,6 +17,8 @@ public class Customer {
     private LocalDate birthDate;
     @Column(name = "is_young_driver")
     private boolean isYoungDriver;
+    @OneToMany(mappedBy = "customer")
+    private List<Sale> sales;
 
     public Customer() {
     }

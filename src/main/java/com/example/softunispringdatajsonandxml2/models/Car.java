@@ -53,4 +53,12 @@ public class Car {
     public void setTravelledDistance(Integer travelledDistance) {
         this.travelledDistance = travelledDistance;
     }
+
+    public List<Part> getParts() {
+        return parts;
+    }
+
+    public void setParts(List<Part> parts) {
+        this.parts = parts;
+    }
 }
