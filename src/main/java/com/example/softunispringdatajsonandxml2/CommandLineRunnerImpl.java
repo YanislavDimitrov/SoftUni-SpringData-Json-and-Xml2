@@ -1,20 +1,22 @@
 package com.example.softunispringdatajsonandxml2;
 
-import com.example.softunispringdatajsonandxml2.services.SupplierService;
+import com.example.softunispringdatajsonandxml2.services.contracts.PartService;
+import com.example.softunispringdatajsonandxml2.services.contracts.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Component
 public class CommandLineRunnerImpl implements CommandLineRunner {
     private final SupplierService supplierService;
+    private final PartService partService;
 
     @Autowired
-    public CommandLineRunnerImpl(SupplierService supplierService) {
+    public CommandLineRunnerImpl(SupplierService supplierService, PartService partService) {
         this.supplierService = supplierService;
+        this.partService = partService;
     }
 
     @Override
@@ -24,5 +26,6 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
 
     private void seedData() throws IOException {
         this.supplierService.seedSuppliers();
+        this.partService.seedParts();
     }
 }
