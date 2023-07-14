@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Random;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -40,5 +41,13 @@ public class CustomerServiceImpl implements CustomerService {
                     .map(dto -> modelMapper.map(dto, Customer.class))
                     .forEach(customerRepository::save);
         }
+    }
+
+    @Override
+    public Customer getRandomCustomer() {
+        long totalCustomers = this.customerRepository.count();
+        return this.customerRepository
+                .findById(new Random().nextLong(1, totalCustomers + 1))
+                .orElse(null);
     }
 }

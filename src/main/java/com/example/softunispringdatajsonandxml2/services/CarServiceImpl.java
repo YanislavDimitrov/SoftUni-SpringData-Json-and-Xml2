@@ -16,6 +16,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -50,6 +51,14 @@ public class CarServiceImpl implements CarService {
                     })
                     .forEach(carRepository::save);
         }
+    }
+
+    @Override
+    public Car getRandomCar() {
+        long totalCars = this.carRepository.count();
+        return this.carRepository
+                .findById(new Random().nextLong(1, totalCars + 1))
+                .orElse(null);
     }
 
     private List<Part> getRandomParts() {
