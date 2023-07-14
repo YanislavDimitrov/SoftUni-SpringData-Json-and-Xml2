@@ -58,7 +58,7 @@ public class PartServiceImpl implements PartService {
     public List<Part> getRandomParts() {
         List<Part> parts = new ArrayList<>();
         Random random = new Random();
-        int partsToAdd = random.nextInt(1, 3);
+        int partsToAdd = random.nextInt(3, 6);
         long totalParts = partRepository.count();
 
         for (int i = 0; i < partsToAdd; i++) {

@@ -3,6 +3,7 @@ package com.example.softunispringdatajsonandxml2.services;
 import com.example.softunispringdatajsonandxml2.models.Car;
 import com.example.softunispringdatajsonandxml2.models.Part;
 import com.example.softunispringdatajsonandxml2.models.dtos.CarWithNoPartsViewDto;
+import com.example.softunispringdatajsonandxml2.models.dtos.CarWithPartsDto;
 import com.example.softunispringdatajsonandxml2.models.dtos.seedDtos.CarSeedDto;
 import com.example.softunispringdatajsonandxml2.repositories.CarRepository;
 import com.example.softunispringdatajsonandxml2.services.contracts.CarService;
@@ -68,6 +69,13 @@ public class CarServiceImpl implements CarService {
     public List<CarWithNoPartsViewDto> getAllToyotaCarsOrderedByModelAndDistance() {
         return this.carRepository.findAllByMakeOrderByModelAscTravelledDistanceDesc(CAR_MAKE)
                 .stream().map(car -> modelMapper.map(car, CarWithNoPartsViewDto.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CarWithPartsDto> getCarsWithParts() {
+        return this.carRepository.findAll()
+                .stream().map(car -> modelMapper.map(car, CarWithPartsDto.class))
                 .collect(Collectors.toList());
     }
 
