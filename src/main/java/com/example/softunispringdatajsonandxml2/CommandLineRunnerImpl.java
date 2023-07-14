@@ -2,6 +2,7 @@ package com.example.softunispringdatajsonandxml2;
 
 import com.example.softunispringdatajsonandxml2.models.dtos.CarWithNoPartsViewDto;
 import com.example.softunispringdatajsonandxml2.models.dtos.CustomerFullViewDto;
+import com.example.softunispringdatajsonandxml2.models.dtos.SupplierPartsCountDto;
 import com.example.softunispringdatajsonandxml2.services.contracts.*;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,8 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
         Scanner sc = new Scanner(System.in);
         System.out.println("Please select operation: " +
                 "\n1 -> Ordered Customers by Birthdate" +
-                "\n2 -> Cars from Make Toyota ordered by Model and Distance");
+                "\n2 -> Cars from Make Toyota ordered by Model and Distance" +
+                "\n3 -> Get all suppliers that do not import parts from abroad");
         int operation = Integer.parseInt(sc.nextLine());
 
         switch (operation) {
@@ -50,7 +52,10 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
                 List<CarWithNoPartsViewDto> cars = this.carService.getAllToyotaCarsOrderedByModelAndDistance();
                 System.out.println(gson.toJson(cars));
                 break;
-
+            case 3:
+                List<SupplierPartsCountDto> suppliers = this.supplierService.getNotImportingSuppliers();
+                System.out.println(gson.toJson(suppliers));
+                break;
         }
     }
 

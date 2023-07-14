@@ -15,7 +15,7 @@ public class Supplier {
     @Column(name = "is_importer")
     private boolean isImporter;
 
-    @OneToMany(mappedBy = "supplier")
+    @OneToMany(mappedBy = "supplier",fetch = FetchType.EAGER)
     private List<Part> parts;
 
     public Supplier() {
@@ -43,5 +43,13 @@ public class Supplier {
 
     public void setImporter(boolean importer) {
         isImporter = importer;
+    }
+
+    public List<Part> getParts() {
+        return parts;
+    }
+
+    public void setParts(List<Part> parts) {
+        this.parts = parts;
     }
 }

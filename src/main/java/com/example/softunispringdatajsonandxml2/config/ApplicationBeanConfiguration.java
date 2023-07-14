@@ -1,10 +1,8 @@
 package com.example.softunispringdatajsonandxml2.config;
 
-import com.example.softunispringdatajsonandxml2.models.Car;
-import com.example.softunispringdatajsonandxml2.models.Customer;
-import com.example.softunispringdatajsonandxml2.models.Part;
-import com.example.softunispringdatajsonandxml2.models.Sale;
+import com.example.softunispringdatajsonandxml2.models.*;
 import com.example.softunispringdatajsonandxml2.models.dtos.SaleWithDiscountDto;
+import com.example.softunispringdatajsonandxml2.models.dtos.SupplierPartsCountDto;
 import com.google.gson.*;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
@@ -27,6 +25,7 @@ public class ApplicationBeanConfiguration {
     public ModelMapper modelMapper() {
         ModelMapper mapper = new ModelMapper();
         TypeMap<Sale, SaleWithDiscountDto> saleWithDiscountDtoTypeMap = mapper.createTypeMap(Sale.class, SaleWithDiscountDto.class);
+        TypeMap<Supplier, SupplierPartsCountDto> supplierPartsCountDtoTypeMap = mapper.createTypeMap(Supplier.class, SupplierPartsCountDto.class);
         Converter<Car, BigDecimal> carPriceConverter = new Converter<Car, BigDecimal>() {
             @Override
             public BigDecimal convert(MappingContext<Car, BigDecimal> mappingContext) {
@@ -38,9 +37,15 @@ public class ApplicationBeanConfiguration {
                 return total;
             }
         };
+        Converter<Supplier, Integer> supplierPartsCountConverter = new Converter<Supplier, Integer>() {
+            @Override
+            public Integer convert(MappingContext<Supplier, Integer> mappingContext) {
+                return mappingContext.getSource().getParts().size();
+            }
+        };
 
-//        saleWithDiscountDtoTypeMap.addMappings(m -> m.using(carPriceWithDiscountConverter).map(src -> src, SaleWithDiscountDto::setPriceWithDiscount));
         saleWithDiscountDtoTypeMap.addMappings(m -> m.using(carPriceConverter).map(Sale::getCar, SaleWithDiscountDto::setPrice));
+        supplierPartsCountDtoTypeMap.addMappings(m -> m.using(supplierPartsCountConverter).map(src -> src, SupplierPartsCountDto::setPartsCount));
         return mapper;
     }
 

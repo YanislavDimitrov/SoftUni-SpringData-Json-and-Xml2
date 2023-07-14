@@ -1,6 +1,7 @@
 package com.example.softunispringdatajsonandxml2.services;
 
 import com.example.softunispringdatajsonandxml2.models.Supplier;
+import com.example.softunispringdatajsonandxml2.models.dtos.SupplierPartsCountDto;
 import com.example.softunispringdatajsonandxml2.models.dtos.seedDtos.SupplierSeedDto;
 import com.example.softunispringdatajsonandxml2.repositories.SupplierRepository;
 import com.example.softunispringdatajsonandxml2.services.contracts.SupplierService;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Service;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class SupplierServiceImpl implements SupplierService {
@@ -53,5 +56,12 @@ public class SupplierServiceImpl implements SupplierService {
         long randomId = new Random().nextLong(1, suppliersCount + 1);
         return this.supplierRepository.findById(randomId)
                 .orElse(null);
+    }
+
+    @Override
+    public List<SupplierPartsCountDto> getNotImportingSuppliers() {
+        return this.supplierRepository.findAllByImporterFalse()
+                .stream().map(s -> modelMapper.map(s, SupplierPartsCountDto.class))
+                .collect(Collectors.toList());
     }
 }
