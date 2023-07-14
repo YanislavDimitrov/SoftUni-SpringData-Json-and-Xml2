@@ -1,4 +1,4 @@
-package com.example.softunispringdatajsonandxml2.models.dtos;
+package com.example.softunispringdatajsonandxml2.models.dtos.seedDtos;
 
 import com.google.gson.annotations.Expose;
 

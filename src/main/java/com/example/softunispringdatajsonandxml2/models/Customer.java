@@ -17,7 +17,7 @@ public class Customer {
     private LocalDate birthDate;
     @Column(name = "is_young_driver")
     private boolean isYoungDriver;
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     private List<Sale> sales;
 
     public Customer() {

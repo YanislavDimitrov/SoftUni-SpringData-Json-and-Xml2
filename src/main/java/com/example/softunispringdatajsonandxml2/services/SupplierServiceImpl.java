@@ -1,7 +1,7 @@
 package com.example.softunispringdatajsonandxml2.services;
 
 import com.example.softunispringdatajsonandxml2.models.Supplier;
-import com.example.softunispringdatajsonandxml2.models.dtos.SupplierSeedDto;
+import com.example.softunispringdatajsonandxml2.models.dtos.seedDtos.SupplierSeedDto;
 import com.example.softunispringdatajsonandxml2.repositories.SupplierRepository;
 import com.example.softunispringdatajsonandxml2.services.contracts.SupplierService;
 import com.example.softunispringdatajsonandxml2.utils.ValidationUtil;

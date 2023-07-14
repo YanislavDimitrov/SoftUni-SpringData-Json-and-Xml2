@@ -16,7 +16,7 @@ public class Car {
     private String model;
     @Column(name = "travelled_distance")
     private Long travelledDistance;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Part> parts;
 
     public Car() {

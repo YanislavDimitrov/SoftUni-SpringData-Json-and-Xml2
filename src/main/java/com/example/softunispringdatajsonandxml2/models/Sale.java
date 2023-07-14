@@ -2,6 +2,8 @@ package com.example.softunispringdatajsonandxml2.models;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "sales")
 public class Sale {
@@ -9,7 +11,7 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "discount")
-    private Integer discount;
+    private BigDecimal discount;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -29,11 +31,11 @@ public class Sale {
         this.id = id;
     }
 
-    public Integer getDiscount() {
+    public BigDecimal getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Integer discount) {
+    public void setDiscount(BigDecimal discount) {
         this.discount = discount;
     }
 

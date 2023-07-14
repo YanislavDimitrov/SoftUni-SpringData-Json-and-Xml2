@@ -1,7 +1,9 @@
 package com.example.softunispringdatajsonandxml2.services;
 
 import com.example.softunispringdatajsonandxml2.models.Customer;
-import com.example.softunispringdatajsonandxml2.models.dtos.CustomerSeedDto;
+import com.example.softunispringdatajsonandxml2.models.dtos.CustomerFullViewDto;
+import com.example.softunispringdatajsonandxml2.models.dtos.SaleWithDiscountDto;
+import com.example.softunispringdatajsonandxml2.models.dtos.seedDtos.CustomerSeedDto;
 import com.example.softunispringdatajsonandxml2.repositories.CustomerRepository;
 import com.example.softunispringdatajsonandxml2.services.contracts.CustomerService;
 import com.example.softunispringdatajsonandxml2.utils.ValidationUtil;
@@ -9,11 +11,13 @@ import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -49,5 +53,19 @@ public class CustomerServiceImpl implements CustomerService {
         return this.customerRepository
                 .findById(new Random().nextLong(1, totalCustomers + 1))
                 .orElse(null);
+    }
+
+    @Override
+    public List<CustomerFullViewDto> getAllCustomersOrderedByBirthdateThenByExperience() {
+        return customerRepository.getAllCustomersOrderedByBirthDateThenByExperience()
+                .stream()
+                .map(c -> {
+                    CustomerFullViewDto dto = modelMapper.map(c, CustomerFullViewDto.class);
+                    for (SaleWithDiscountDto sale : dto.getSales()) {
+                        sale.setPriceWithDiscount(sale.getPrice().multiply(BigDecimal.ONE.subtract(sale.getDiscount())));
+                    }
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 }

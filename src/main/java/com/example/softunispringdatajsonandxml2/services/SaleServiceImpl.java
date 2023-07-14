@@ -1,7 +1,7 @@
 package com.example.softunispringdatajsonandxml2.services;
 
 import com.example.softunispringdatajsonandxml2.models.Sale;
-import com.example.softunispringdatajsonandxml2.models.dtos.SaleSeedDto;
+import com.example.softunispringdatajsonandxml2.models.dtos.seedDtos.SaleSeedDto;
 import com.example.softunispringdatajsonandxml2.repositories.SaleRepository;
 import com.example.softunispringdatajsonandxml2.services.contracts.CarService;
 import com.example.softunispringdatajsonandxml2.services.contracts.CustomerService;
@@ -10,13 +10,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Random;
 
 @Service
 public class SaleServiceImpl implements SaleService {
     private static final int SALES_COUNT = 50;
-    private static final Integer[] DISCOUNTS = new Integer[]{0, 5, 10, 15, 20, 30, 40, 50};
+    private static final Double[] DISCOUNTS = new Double[]{0.0, 0.05, 0.10, 0.15, 0.20, 0.30, 0.40, 0.50};
     private final SaleRepository saleRepository;
     private final CarService carService;
     private final CustomerService customerService;
@@ -49,9 +50,9 @@ public class SaleServiceImpl implements SaleService {
                 .forEach(saleRepository::save);
     }
 
-    private Integer getRandomDiscount() {
+    private BigDecimal getRandomDiscount() {
         int discountsCount = DISCOUNTS.length;
 
-        return DISCOUNTS[new Random().nextInt(discountsCount)];
+        return BigDecimal.valueOf(DISCOUNTS[new Random().nextInt(discountsCount)]);
     }
 }

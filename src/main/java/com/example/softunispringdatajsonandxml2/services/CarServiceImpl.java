@@ -2,7 +2,7 @@ package com.example.softunispringdatajsonandxml2.services;
 
 import com.example.softunispringdatajsonandxml2.models.Car;
 import com.example.softunispringdatajsonandxml2.models.Part;
-import com.example.softunispringdatajsonandxml2.models.dtos.CarSeedDto;
+import com.example.softunispringdatajsonandxml2.models.dtos.seedDtos.CarSeedDto;
 import com.example.softunispringdatajsonandxml2.repositories.CarRepository;
 import com.example.softunispringdatajsonandxml2.services.contracts.CarService;
 import com.example.softunispringdatajsonandxml2.services.contracts.PartService;
