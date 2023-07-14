@@ -54,4 +54,12 @@ public class Customer {
     public void setYoungDriver(boolean youngDriver) {
         isYoungDriver = youngDriver;
     }
+
+    public List<Sale> getSales() {
+        return sales;
+    }
+
+    public void setSales(List<Sale> sales) {
+        this.sales = sales;
+    }
 }

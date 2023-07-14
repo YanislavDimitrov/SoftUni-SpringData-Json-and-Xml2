@@ -1,6 +1,7 @@
 package com.example.softunispringdatajsonandxml2;
 
 import com.example.softunispringdatajsonandxml2.services.contracts.CarService;
+import com.example.softunispringdatajsonandxml2.services.contracts.CustomerService;
 import com.example.softunispringdatajsonandxml2.services.contracts.PartService;
 import com.example.softunispringdatajsonandxml2.services.contracts.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,14 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
     private final SupplierService supplierService;
     private final PartService partService;
     private final CarService carService;
+    private final CustomerService customerService;
 
     @Autowired
-    public CommandLineRunnerImpl(SupplierService supplierService, PartService partService, CarService carService) {
+    public CommandLineRunnerImpl(SupplierService supplierService, PartService partService, CarService carService, CustomerService customerService) {
         this.supplierService = supplierService;
         this.partService = partService;
         this.carService = carService;
+        this.customerService = customerService;
     }
 
     @Override
@@ -31,5 +34,6 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
         this.supplierService.seedSuppliers();
         this.partService.seedParts();
         this.carService.seedCars();
+        this.customerService.seedCustomers();
     }
 }
