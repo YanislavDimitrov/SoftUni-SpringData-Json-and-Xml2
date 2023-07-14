@@ -14,7 +14,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 @Service
 public class PartServiceImpl implements PartService {
@@ -49,6 +52,21 @@ public class PartServiceImpl implements PartService {
                     })
                     .forEach(partRepository::save);
         }
+    }
+
+    @Override
+    public List<Part> getRandomParts() {
+        List<Part> parts = new ArrayList<>();
+        Random random = new Random();
+        int partsToAdd = random.nextInt(1, 3);
+        long totalParts = partRepository.count();
+
+        for (int i = 0; i < partsToAdd; i++) {
+            parts
+                    .add(partRepository.findById(random.nextLong(1, totalParts))
+                            .orElse(null));
+        }
+        return parts;
     }
 
     private Supplier getRandomSupplier() {

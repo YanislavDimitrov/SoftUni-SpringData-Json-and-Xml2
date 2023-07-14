@@ -20,10 +20,7 @@ public class Part {
     @ManyToOne
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
-    @ManyToMany
-    @JoinTable(name = "parts_cars",
-            joinColumns = @JoinColumn(name = "part_id"),
-            inverseJoinColumns = @JoinColumn(name = "car_id"))
+    @ManyToMany(mappedBy = "parts")
     private List<Car> cars;
 
     public Part() {

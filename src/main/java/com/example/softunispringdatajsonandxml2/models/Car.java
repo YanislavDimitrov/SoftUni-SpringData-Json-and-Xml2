@@ -15,8 +15,8 @@ public class Car {
     @Column(name = "model")
     private String model;
     @Column(name = "travelled_distance")
-    private Integer travelledDistance;
-    @ManyToMany(mappedBy = "cars")
+    private Long travelledDistance;
+    @ManyToMany
     private List<Part> parts;
 
     public Car() {
@@ -46,11 +46,11 @@ public class Car {
         this.model = model;
     }
 
-    public Integer getTravelledDistance() {
+    public Long getTravelledDistance() {
         return travelledDistance;
     }
 
-    public void setTravelledDistance(Integer travelledDistance) {
+    public void setTravelledDistance(Long travelledDistance) {
         this.travelledDistance = travelledDistance;
     }
 
