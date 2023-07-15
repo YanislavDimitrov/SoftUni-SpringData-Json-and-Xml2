@@ -5,7 +5,6 @@ import com.example.softunispringdatajsonandxml2.models.Sale;
 import com.example.softunispringdatajsonandxml2.models.dtos.CustomerFullViewDto;
 import com.example.softunispringdatajsonandxml2.models.dtos.CustomerTotalSalesDto;
 import com.example.softunispringdatajsonandxml2.models.dtos.SaleWithDiscountDto;
-import com.example.softunispringdatajsonandxml2.models.dtos.Test;
 import com.example.softunispringdatajsonandxml2.models.dtos.seedDtos.CustomerSeedDto;
 import com.example.softunispringdatajsonandxml2.repositories.CustomerRepository;
 import com.example.softunispringdatajsonandxml2.services.contracts.CustomerService;
