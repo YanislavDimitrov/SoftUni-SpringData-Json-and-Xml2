@@ -40,7 +40,8 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
                 "\n2 -> Cars from Make Toyota ordered by Model and Distance." +
                 "\n3 -> Get all suppliers that do not import parts from abroad." +
                 "\n4 -> Get all cars along with their list of parts." +
-                "\n5 -> Total Sales by Customer.");
+                "\n5 -> Total Sales by Customer." +
+                "\n6 -> Get all Sales with Applied Discount.");
         int operation = Integer.parseInt(sc.nextLine());
 
         switch (operation) {
@@ -63,6 +64,10 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
             case 5:
                 List<CustomerTotalSalesDto> customersWithSales = this.customerService.getAllCustomersWithAtLeastOneCarOrderedByMoneySpend();
                 System.out.println(gson.toJson(customersWithSales));
+                break;
+            case 6:
+                List<SaleWithDiscountDto> sales = this.saleService.getAllSales();
+                System.out.println(gson.toJson(sales));
                 break;
         }
     }

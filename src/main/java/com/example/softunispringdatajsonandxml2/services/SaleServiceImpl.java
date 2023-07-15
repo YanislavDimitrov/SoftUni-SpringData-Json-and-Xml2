@@ -1,6 +1,7 @@
 package com.example.softunispringdatajsonandxml2.services;
 
 import com.example.softunispringdatajsonandxml2.models.Sale;
+import com.example.softunispringdatajsonandxml2.models.dtos.SaleWithDiscountDto;
 import com.example.softunispringdatajsonandxml2.models.dtos.seedDtos.SaleSeedDto;
 import com.example.softunispringdatajsonandxml2.repositories.SaleRepository;
 import com.example.softunispringdatajsonandxml2.services.contracts.CarService;
@@ -12,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class SaleServiceImpl implements SaleService {
@@ -48,6 +51,17 @@ public class SaleServiceImpl implements SaleService {
         Arrays.stream(dtos)
                 .map(dto -> modelMapper.map(dto, Sale.class))
                 .forEach(saleRepository::save);
+    }
+
+    @Override
+    public List<SaleWithDiscountDto> getAllSales() {
+        return saleRepository.findAll()
+                .stream().map(sale -> {
+                    SaleWithDiscountDto dto = modelMapper.map(sale, SaleWithDiscountDto.class);
+                    dto.setPriceWithDiscount(dto.getPrice().multiply(BigDecimal.ONE.subtract(sale.getDiscount())));
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 
     private BigDecimal getRandomDiscount() {
