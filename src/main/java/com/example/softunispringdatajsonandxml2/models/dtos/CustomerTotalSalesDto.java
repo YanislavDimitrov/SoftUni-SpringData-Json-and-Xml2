@@ -2,14 +2,22 @@ package com.example.softunispringdatajsonandxml2.models.dtos;
 
 import com.google.gson.annotations.Expose;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
-
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CustomerTotalSalesDto {
+    @XmlAttribute(name = "full-name")
     @Expose
     private String name;
+    @XmlAttribute(name = "bought-cars")
     @Expose
     private Long boughtCars;
     @Expose
+    @XmlAttribute(name = "spend-money")
     private BigDecimal spendMoney;
 
     public CustomerTotalSalesDto() {

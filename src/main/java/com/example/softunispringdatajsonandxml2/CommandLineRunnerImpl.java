@@ -1,10 +1,7 @@
 package com.example.softunispringdatajsonandxml2;
 
 import com.example.softunispringdatajsonandxml2.models.dtos.*;
-import com.example.softunispringdatajsonandxml2.models.dtos.XMLWrappers.CarWithNoPartsViewWrapper;
-import com.example.softunispringdatajsonandxml2.models.dtos.XMLWrappers.CarWithPartsWrapper;
-import com.example.softunispringdatajsonandxml2.models.dtos.XMLWrappers.CustomerFullViewWrapper;
-import com.example.softunispringdatajsonandxml2.models.dtos.XMLWrappers.SupplierPartsCountWrapper;
+import com.example.softunispringdatajsonandxml2.models.dtos.XMLWrappers.*;
 import com.example.softunispringdatajsonandxml2.services.contracts.*;
 import com.example.softunispringdatajsonandxml2.utils.XMLParser;
 import com.google.gson.Gson;
@@ -114,7 +111,13 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
                 List<CustomerTotalSalesDto> customersWithSales =
                         this.customerService.getAllCustomersWithAtLeastOneCarOrderedByMoneySpend();
 
-                System.out.println(gson.toJson(customersWithSales));
+                if (formatInput.equalsIgnoreCase("json")) {
+                    System.out.println(gson.toJson(customersWithSales));
+                } else if (formatInput.equalsIgnoreCase("xml")) {
+                    System.out.println(xmlParser.serialize(new CustomerTotalSalesWrapper(customersWithSales)));
+                } else {
+                    System.out.println("Invalid format!");
+                }
                 break;
             case 6:
                 List<SaleWithDiscountDto> sales = this.saleService.getAllSales();
