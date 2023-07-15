@@ -122,7 +122,13 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
             case 6:
                 List<SaleWithDiscountDto> sales = this.saleService.getAllSales();
 
-                System.out.println(gson.toJson(sales));
+                if (formatInput.equalsIgnoreCase("json")) {
+                    System.out.println(gson.toJson(sales));
+                } else if (formatInput.equalsIgnoreCase("xml")) {
+                    System.out.println(xmlParser.serialize(new SaleWithDiscountWrapper(sales)));
+                } else {
+                    System.out.println("Invalid format!");
+                }
                 break;
         }
     }
