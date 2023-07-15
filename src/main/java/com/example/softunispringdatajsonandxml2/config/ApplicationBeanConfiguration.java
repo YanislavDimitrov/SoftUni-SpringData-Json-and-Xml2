@@ -55,11 +55,19 @@ public class ApplicationBeanConfiguration {
         GsonBuilder gsonBuilder = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .setPrettyPrinting();
-        return gsonBuilder.registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
+        gsonBuilder.registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
             @Override
             public LocalDate deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
                 return LocalDate.parse(json.getAsJsonPrimitive().getAsString(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
             }
-        }).create();
+        });
+
+        gsonBuilder.registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
+            @Override
+            public JsonElement serialize(LocalDate date, Type typeOfSrc, JsonSerializationContext context) {
+                return new JsonPrimitive(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            }
+        });
+        return gsonBuilder.create();
     }
 }
