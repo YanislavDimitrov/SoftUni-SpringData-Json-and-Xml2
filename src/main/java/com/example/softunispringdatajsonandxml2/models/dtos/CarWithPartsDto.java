@@ -3,14 +3,19 @@ package com.example.softunispringdatajsonandxml2.models.dtos;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import javax.xml.bind.annotation.*;
 import java.util.List;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CarWithPartsDto {
     @Expose
     @SerializedName("Car")
     private CarMakeModelDistanceDto car;
     @Expose
     @SerializedName("Parts")
+    @XmlElementWrapper(name = "parts")
+    @XmlElement(name = "part")
     private List<PartNameAndPriceDto> parts;
 
     public CarWithPartsDto() {

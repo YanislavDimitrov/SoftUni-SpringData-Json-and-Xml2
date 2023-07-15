@@ -2,6 +2,7 @@ package com.example.softunispringdatajsonandxml2;
 
 import com.example.softunispringdatajsonandxml2.models.dtos.*;
 import com.example.softunispringdatajsonandxml2.models.dtos.XMLWrappers.CarWithNoPartsViewWrapper;
+import com.example.softunispringdatajsonandxml2.models.dtos.XMLWrappers.CarWithPartsWrapper;
 import com.example.softunispringdatajsonandxml2.models.dtos.XMLWrappers.CustomerFullViewWrapper;
 import com.example.softunispringdatajsonandxml2.models.dtos.XMLWrappers.SupplierPartsCountWrapper;
 import com.example.softunispringdatajsonandxml2.services.contracts.*;
@@ -101,7 +102,13 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
                 List<CarWithPartsDto> carsWithParts =
                         this.carService.getCarsWithParts();
 
-                System.out.println(gson.toJson(carsWithParts));
+                if (formatInput.equalsIgnoreCase("json")) {
+                    System.out.println(gson.toJson(carsWithParts));
+                } else if (formatInput.equalsIgnoreCase("xml")) {
+                    System.out.println(xmlParser.serialize(new CarWithPartsWrapper(carsWithParts)));
+                } else {
+                    System.out.println("Invalid format!");
+                }
                 break;
             case 5:
                 List<CustomerTotalSalesDto> customersWithSales =
