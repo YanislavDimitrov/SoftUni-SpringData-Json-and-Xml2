@@ -2,6 +2,7 @@ package com.example.softunispringdatajsonandxml2.models;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -60,5 +61,13 @@ public class Car {
 
     public void setParts(List<Part> parts) {
         this.parts = parts;
+    }
+
+    public BigDecimal getPrice() {
+        BigDecimal total = BigDecimal.ZERO;
+        for (Part part : this.parts) {
+            total = total.add(part.getPrice());
+        }
+        return total;
     }
 }

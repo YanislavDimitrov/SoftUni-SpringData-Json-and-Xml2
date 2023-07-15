@@ -1,8 +1,11 @@
 package com.example.softunispringdatajsonandxml2.services;
 
 import com.example.softunispringdatajsonandxml2.models.Customer;
+import com.example.softunispringdatajsonandxml2.models.Sale;
 import com.example.softunispringdatajsonandxml2.models.dtos.CustomerFullViewDto;
+import com.example.softunispringdatajsonandxml2.models.dtos.CustomerTotalSalesDto;
 import com.example.softunispringdatajsonandxml2.models.dtos.SaleWithDiscountDto;
+import com.example.softunispringdatajsonandxml2.models.dtos.Test;
 import com.example.softunispringdatajsonandxml2.models.dtos.seedDtos.CustomerSeedDto;
 import com.example.softunispringdatajsonandxml2.repositories.CustomerRepository;
 import com.example.softunispringdatajsonandxml2.services.contracts.CustomerService;
@@ -67,5 +70,18 @@ public class CustomerServiceImpl implements CustomerService {
                     return dto;
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CustomerTotalSalesDto> getAllCustomersWithAtLeastOneCarOrderedByMoneySpend() {
+        return this.customerRepository.getAllCustomersWithAtLeastOneCarOrderedByTotalMoneySpend();
+    }
+
+    private BigDecimal getTotalSpend(List<Sale> sales) {
+        BigDecimal total = BigDecimal.ZERO;
+        for (Sale sale : sales) {
+            total = total.add(sale.getCar().getPrice());
+        }
+        return total;
     }
 }

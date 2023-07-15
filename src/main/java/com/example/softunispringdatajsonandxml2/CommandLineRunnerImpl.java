@@ -1,9 +1,6 @@
 package com.example.softunispringdatajsonandxml2;
 
-import com.example.softunispringdatajsonandxml2.models.dtos.CarWithNoPartsViewDto;
-import com.example.softunispringdatajsonandxml2.models.dtos.CarWithPartsDto;
-import com.example.softunispringdatajsonandxml2.models.dtos.CustomerFullViewDto;
-import com.example.softunispringdatajsonandxml2.models.dtos.SupplierPartsCountDto;
+import com.example.softunispringdatajsonandxml2.models.dtos.*;
 import com.example.softunispringdatajsonandxml2.services.contracts.*;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +36,11 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Please select operation: " +
-                "\n1 -> Ordered Customers by Birthdate" +
-                "\n2 -> Cars from Make Toyota ordered by Model and Distance" +
-                "\n3 -> Get all suppliers that do not import parts from abroad" +
-                "\n4 -> Get all cars along with their list of parts.");
+                "\n1 -> Ordered Customers by Birthdate." +
+                "\n2 -> Cars from Make Toyota ordered by Model and Distance." +
+                "\n3 -> Get all suppliers that do not import parts from abroad." +
+                "\n4 -> Get all cars along with their list of parts." +
+                "\n5 -> Total Sales by Customer.");
         int operation = Integer.parseInt(sc.nextLine());
 
         switch (operation) {
@@ -61,6 +59,10 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
             case 4:
                 List<CarWithPartsDto> carsWithParts = this.carService.getCarsWithParts();
                 System.out.println(gson.toJson(carsWithParts));
+                break;
+            case 5:
+                List<CustomerTotalSalesDto> customersWithSales = this.customerService.getAllCustomersWithAtLeastOneCarOrderedByMoneySpend();
+                System.out.println(gson.toJson(customersWithSales));
                 break;
         }
     }
